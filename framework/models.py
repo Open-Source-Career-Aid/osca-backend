@@ -4,13 +4,15 @@ from django.db import models
 
 class user_changes(models.Models):
 
+class vote(models.Model):
+
 class Superskill(models.Model):
     meta_description = 
     global_id = 
     tags = #list #local_id
     prerequisites = #list #local_id
     subskills = #list #local_id
-    changes = #class
+    timed_changes = #class
 
 class Subskill(models.Model):
     meta_description =
@@ -18,5 +20,18 @@ class Subskill(models.Model):
     tags = #list #local_id
     prerequisites = #list #local_id
     topics = #list #local_id
-    changes = #class
+    timed_changes = #class
     superskills_backlink = #list #global_id #local_id
+    votes = #class
+
+class topic(models.Model):
+    meta_description = 
+    global_id = 
+    tags =
+    prerequisites = 
+    topics = 
+    resources = #list #local_id
+    timed_changes = 
+    subskills_backlink = 
+    topics_backlink =
+    votes =
