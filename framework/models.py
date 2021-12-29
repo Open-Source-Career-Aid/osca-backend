@@ -15,17 +15,6 @@ class Superskill(models.Model):
     timed_changes = #class
 
 class Subskill(models.Model):
-<<<<<<< HEAD
-    meta_description =
-    global_id = 
-    tags = #list #local_id
-    prerequisites = #list #local_id
-    topics = #list #local_id
-    changes = #class
-    superskills_backlink = #list #global_id #local_id
-
-
-=======
     subskill_name = models.CharField(max_length=100)
     meta_description = models.CharField(max_length=200, blank=True)
     tags = models.ManyToManyField(Tag, related_name="subskill_tags", blank=True)
@@ -52,4 +41,3 @@ class resource(models.Model):
 class Tag(models.Model):
 
 class Prerequisite(models.Model):
->>>>>>> 82adbf08b6fbc2cf9f73904160208cf4706b0405

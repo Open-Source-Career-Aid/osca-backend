@@ -1,6 +1,7 @@
-from django.apps import AppConfig
+from django.apps import AppConfig as BaseConfig
+from django.utils.translation import ugettext_lazy as _
 
 
-class VoteConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Vote'
+class VoteAppConfig(BaseConfig):
+    name = 'vote'
+    verbose_name = _('Vote')
