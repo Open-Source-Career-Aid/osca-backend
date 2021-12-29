@@ -2,5 +2,5 @@
 
 List of apps
 * Framework
-* Votes
+* Vote
 * TimedChanges
