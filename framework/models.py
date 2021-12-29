@@ -7,6 +7,7 @@ class user_changes(models.Models):
 class vote(models.Model):
 
 class Superskill(models.Model):
+    superskill_name = 
     meta_description = 
     global_id = 
     tags = #list #local_id
@@ -15,6 +16,7 @@ class Superskill(models.Model):
     timed_changes = #class
 
 class Subskill(models.Model):
+    subskill_name = 
     meta_description =
     global_id = 
     tags = #list #local_id
@@ -25,6 +27,7 @@ class Subskill(models.Model):
     votes = #class
 
 class topic(models.Model):
+    tag_name = 
     meta_description = 
     global_id = 
     tags =
@@ -35,3 +38,5 @@ class topic(models.Model):
     subskills_backlink = 
     topics_backlink =
     votes =
+
+class resource(models_model):
