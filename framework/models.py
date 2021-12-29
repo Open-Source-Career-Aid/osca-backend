@@ -20,3 +20,5 @@ class Subskill(models.Model):
     topics = #list #local_id
     changes = #class
     superskills_backlink = #list #global_id #local_id
+
+
