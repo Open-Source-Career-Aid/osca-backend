@@ -9,7 +9,7 @@ class vote(models.Model):
     pass
 
 
-class Resource(models.Model):
+class resource(models.Model):
     link = models.TextField(blank=True)
     # resource_vote = models.OneToOneField(Vote,default=0, related_name="vote_resource", parent_link=True, blank=True, on_delete=models.PROTECT)
     
@@ -37,8 +37,7 @@ class Topic(models.Model):
     prerequisites = models.ManyToManyField(
         Prerequisite, related_name="topic_with_this_prerequisite", blank=True)
     topics = models.CharField(max_length=100)
-    resources = models.ManyToManyField(
-        Resource, related_name="resources_topic", blank=True)
+    resources = #list #local_id
     timed_changes = 
     subskills_backlink = 
     topics_backlink =
