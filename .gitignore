@@ -1,0 +1,11 @@
+*.log
+*.pot
+*.pyc
+__pycache__/
+backend/local_settings.py
+db.sqlite3
+.venv/
+.vscode
+req.json
+.env
+.DS_Store
