@@ -42,7 +42,7 @@ class Topic( VoteModel):
     # subskills_backlink = 
     # topics_backlink =
     def __str__(self):
-        return self.Topic_name
+        return self.topic_name
 
 class Subskill( VoteModel):
     subskill_name = models.CharField(max_length=100)
