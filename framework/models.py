@@ -31,12 +31,11 @@ class Prerequisite(models.Model):
 
 
 class Topic( VoteModel):
-    Topic_name = models.CharField(max_length=100)
     meta_description = models.CharField(max_length=200, blank=True)
     tags = models.ManyToManyField(Tag, related_name="topic_tags", blank=True)
     prerequisites = models.ManyToManyField(
         Prerequisite, related_name="topic_with_this_prerequisite", blank=True)
-    topicname = models.CharField(max_length=100)
+    topic_name = models.CharField(max_length=100)
     subtopics = models.ManyToManyField("self", blank=True,  related_name="Subtopics", symmetrical=False)
     resources = models.ManyToManyField(Resource, blank=True)
     timed_changes = models.DateTimeField(auto_now_add=True)
