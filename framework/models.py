@@ -1,5 +1,5 @@
 from django.db import models
-from vote.models import Vote
+from vote.models import VoteModel
 # Create your models here.
 
 class user_changes(models.Model):
@@ -30,8 +30,8 @@ class Prerequisite(models.Model):
         return self.prereqName
 
 
-class Topic( Vote):
-    tag_name = models.CharField(max_length=100)
+class Topic( VoteModel):
+    Topic_name = models.CharField(max_length=100)
     meta_description = models.CharField(max_length=200, blank=True)
     tags = models.ManyToManyField(Tag, related_name="topic_tags", blank=True)
     prerequisites = models.ManyToManyField(
@@ -42,8 +42,10 @@ class Topic( Vote):
     timed_changes = models.DateTimeField(auto_now_add=True)
     # subskills_backlink = 
     # topics_backlink =
+    def __str__(self):
+        return self.Topic_name
 
-class Subskill( Vote):
+class Subskill( VoteModel):
     subskill_name = models.CharField(max_length=100)
     meta_description = models.CharField(max_length=200, blank=True)
     tags = models.ManyToManyField(Tag, related_name="subskill_tags", blank=True)
@@ -52,7 +54,10 @@ class Subskill( Vote):
     timed_changes = models.DateTimeField(auto_now_add=True)
     # superskills_backlink = models.ForeignKey(Superskill)
 
-class Superskill( Vote):
+    def __str__(self):
+        return self.subskill_name
+
+class Superskill( VoteModel):
     superskill_name = models.CharField(max_length=100)
     meta_description = models.CharField(max_length=200, blank=True)
     tags = models.ManyToManyField(
@@ -63,6 +68,8 @@ class Superskill( Vote):
         Subskill, related_name="super_skill", blank=True)
     timed_changes = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.superskill_name
 
 
 
