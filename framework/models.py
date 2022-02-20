@@ -63,6 +63,7 @@ class Superskill( VoteModel):
         Tag, related_name="all_skills_with_this_tag", blank=True)
     prerequisites = models.ManyToManyField(
         Prerequisite, related_name="all_skills_with_this_prerequisite", blank=True)
+    sub_superskills = models.ManyToManyField("self", blank=True, related_name="nested_Superskills", symmetrical=False)
     subskills = models.ManyToManyField(
         Subskill, related_name="super_skill", blank=True)
     timed_changes = models.DateTimeField(auto_now_add=True)
