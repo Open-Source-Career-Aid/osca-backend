@@ -52,7 +52,7 @@ class Subskill( VoteModel):
     topics = models.ManyToManyField(Topic, related_name="subskill_topics", blank=True)
     timed_changes = models.DateTimeField(auto_now_add=True)
     # superskills_backlink = models.ForeignKey(Superskill)
-
+    subskill_sub = models.ManyToManyField("self", blank=True, related_name="subskills_under_subskill", symmetrical=False)
     def __str__(self):
         return self.subskill_name
 
