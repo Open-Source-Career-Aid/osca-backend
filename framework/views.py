@@ -18,9 +18,27 @@ def get_all_skills(request):
     serialized_data = SubSkillSerializer(skills, many=True)
     return Response(serialized_data.data)
 
-
 @api_view(['GET'])
 def get_all_super_skills(request):
     skills = Superskill.objects.all()
     serialized_data = SuperSkillSerializer(skills, many=True)
     return Response(serialized_data.data)
+
+@api_view(['GET'])
+def get_super_skill(request):
+    id = request.GET.get('id')
+    super_skills = Superskill.objects.filter(id=id)
+    serialized_superskill_data = SuperSkillSerializer(super_skills, many=True)
+    if(serialized_superskill_data.data):
+        return Response(serialized_superskill_data.data[0])
+    return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_skill(request):
+    id = request.GET.get('id')
+    skills = Subskill.objects.filter(id=id)
+    serialized_skill_data = SubSkillSerializer(skills, many=True)
+    if(serialized_skill_data.data):
+        return Response(serialized_skill_data.data[0])
+    return Response(status=status.HTTP_404_NOT_FOUND)
