@@ -34,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class SuperSkillSerializer(serializers.ModelSerializer):
-    sub_skill= RelationalSubSkillSerializer(source="sub_skills",read_only=True, many=True)
+    sub_skill= RelationalSubSkillSerializer(source="subskills",read_only=True, many=True)
     class Meta:
         model = Superskill
         fields = '__all__'
@@ -48,10 +48,10 @@ class SkillNameSerializer(serializers.ModelSerializer):
 
 class SuperSkillNameSerializer(serializers.ModelSerializer):
     tag = TagSerializer(source="tags",read_only=True, many=True)
-    sub_skill= RelationalSubSkillSerializer(source="sub_skills",read_only=True, many=True)
+    sub_skill= RelationalSubSkillSerializer(source="subskills",read_only=True, many=True)
     class Meta:
         model = Superskill
-        fields = ['id','superskill_name','tag','subskill']
+        fields = ['id','superskill_name','tags','subskills']
 
 # class SuperSkillNameSerializer2(serializers.ModelSerializer):
 #     class Meta:
