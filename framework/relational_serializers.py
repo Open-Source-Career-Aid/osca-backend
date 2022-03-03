@@ -10,10 +10,10 @@ class TagSerializer(serializers.RelatedField):
 
 class RelationalSubSkillSerializer(serializers.RelatedField):
      def to_representation(self, value):
-         return value.subskill_name
+         return value.skill_name
 
      class Meta:
-        model = Subskill
+        model = Skill
 
 class RelationalPrerequisiteSerializer(serializers.RelatedField):
      def to_representation(self, value):

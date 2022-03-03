@@ -21,10 +21,10 @@ class TopicSerializer(serializers.ModelSerializer):
         model = Topic
         fields='__all__'
 
-class SubSkillSerializer(serializers.ModelSerializer):
+class SkillSerializer(serializers.ModelSerializer):
     prerequisite = RelationalPrerequisiteSerializer(source="prerequisites",read_only=True, many=True)
     class Meta:
-        model = Subskill
+        model = Skill
         fields='__all__'
         depth = 4
 
@@ -34,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class SuperSkillSerializer(serializers.ModelSerializer):
-    sub_skill= RelationalSubSkillSerializer(source="subskills",read_only=True, many=True)
+    sub_skill= RelationalSubSkillSerializer(source="Skills",read_only=True, many=True)
     class Meta:
         model = Superskill
         fields = '__all__'
@@ -42,13 +42,13 @@ class SuperSkillSerializer(serializers.ModelSerializer):
 
 class SkillNameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subskill
-        fields = ['id','subskill_name','tags']
+        model = Skill
+        fields = ['id','skill_name','tags']
         depth=2
 
 class SuperSkillNameSerializer(serializers.ModelSerializer):
     tag = TagSerializer(source="tags",read_only=True, many=True)
-    sub_skill= RelationalSubSkillSerializer(source="subskills",read_only=True, many=True)
+    sub_skill= RelationalSubSkillSerializer(source="skills",read_only=True, many=True)
     class Meta:
         model = Superskill
         fields = ['id','superskill_name','tags','subskills']
