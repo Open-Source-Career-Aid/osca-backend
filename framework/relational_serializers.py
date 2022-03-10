@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from .serializers import *
 
 class TagSerializer(serializers.RelatedField):
      def to_representation(self, value):
@@ -14,6 +15,9 @@ class RelationalSubSkillSerializer(serializers.RelatedField):
 
      class Meta:
         model = Skill
+        fields = '__all__'
+
+
 
 class RelationalPrerequisiteSerializer(serializers.RelatedField):
      def to_representation(self, value):
