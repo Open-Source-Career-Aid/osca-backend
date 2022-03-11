@@ -54,7 +54,7 @@ def get_skill(request):
 ## Function for saving tags and prereq in objects
 def save_prerequisites(skill_temp,data_temp):
         for prereq in data_temp['prerequisites']:
-            pre = Prerequisite.objects.filter(prereqName=prereq['prereqName'])
+            pre = Prerequisite.objects.filter(prereqName=prereq['prereqName'].lower())
             if not pre:
                 pre = Prerequisite.objects.create(
                     prereqName=prereq['prereqName'].lower())
@@ -66,7 +66,7 @@ def save_prerequisites(skill_temp,data_temp):
 
 def save_tags(skill_temp, data_temp):
     for tag in data_temp['tags']:
-        tagObj = Tag.objects.filter(tagName=tag['tagName'])
+        tagObj = Tag.objects.filter(tagName=tag['tagName'].lower())
         if not tagObj:
             tagObj = Tag.objects.create(tagName=tag['tagName'].lower())
             skill_temp.tags.add(tagObj)
@@ -223,6 +223,8 @@ def post_relatation_skill_skill(request):
     parent_skill.save()            
         # except KeyError:
             # pass
+    return Response(status=status.HTTP_201_CREATED)
+    
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
@@ -234,12 +236,14 @@ def post_relatation_skill_topics(request):
     # def nest_skills(skill_object, nested_data):
         # try:
     for topic in data['topics']:
-        topic_temp = Skill.objects.get(topic_name=topic['topic_name'])
-        parent_skill.subskills.add(topic_temp)
+        topic_temp = Topic.objects.get(topic_name=topic['topic_name'])
+        parent_skill.topics.add(topic_temp)
 
     parent_skill.save()            
         # except KeyError:
             # pass
+    return Response(status=status.HTTP_201_CREATED)
+    
 
 
 
@@ -300,7 +304,9 @@ def post_super_skill(request):
     #                 pass
     #             super_skill_temp1.subskills.add(skill_temp,subSuperSkill['subskill'])
     #     except KeyError:
-    #         pass
+    #         pass]
+    return Response(status=status.HTTP_201_CREATED)
+
 
 
 @api_view(['POST'])
@@ -320,6 +326,8 @@ def post_relatation_superskill_skill(request):
                 
         # except KeyError:
             # pass
+    return Response(status=status.HTTP_201_CREATED)
+    
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
@@ -337,6 +345,8 @@ def post_relatation_superskill_superskill(request):
     parent_superskill.save()
         # except KeyError:
             # pass
+    return Response(status=status.HTTP_201_CREATED)
+    
 
 
 ### post topic
@@ -349,10 +359,10 @@ def post_topic(request):
     name = data['userName']
     email = data['email']
 
-    user = User(userName=name, email=email)
+    user = User(name=name, email=email)
 
     topic_name = data['topic']
-    topic_language = data['language']
+    # topic_language = data['language']
     topic_meta_description = data['meta_description']
 
     try :
@@ -361,8 +371,7 @@ def post_topic(request):
         user.save()
         user_id = User.objects.get(email=email)
     
-    topic = Topic(topic_name=topic_name, meta_description=topic_meta_description,
-        language=topic_language )
+    topic = Topic(topic_name=topic_name, meta_description=topic_meta_description )
 
     topic.save()
     topic.contributed_by.add(user_id)
@@ -382,6 +391,8 @@ def post_topic(request):
     except KeyError:
         pass
     topic.save()
+    return Response(status=status.HTTP_201_CREATED)
+
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
@@ -397,3 +408,4 @@ def post_relatation_topic_topic(request):
         parent_topic.sub_topics.add(topic_temp)
     
     parent_topic.save()
+    return Response(status=status.HTTP_201_CREATED)

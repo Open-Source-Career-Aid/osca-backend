@@ -37,6 +37,7 @@ class Topic( VoteModel):
     prerequisites = models.ManyToManyField(
         Prerequisite, related_name="topic_with_this_prerequisite", blank=True)
     topic_name = models.CharField(max_length=100)
+    contributed_by = models.ManyToManyField(User, blank=True)
     subtopics = models.ManyToManyField("self", blank=True,  related_name="Subtopics", symmetrical=False)
     resources = models.ManyToManyField(Resource, blank=True)
     timed_changes = models.DateTimeField(auto_now_add=True)
