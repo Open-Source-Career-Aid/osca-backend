@@ -60,33 +60,41 @@ def post_skill(request):
     name = data['userName']
     email = data['email']
     # password = data['password']
-    user = User(userName=name, email=email)
-    user.save()
+    user = User(name=name, email=email)
+    # user.save()
 
     skill_name = data['skill']
     skill_language = data['language']
     skill_meta_description = data['meta_description']
-    skill = Skill(contributed_by=user, skill=skill_name, language=skill_language, meta_description=skill_meta_description)
+
+    try :
+        user_id = User.objects.get(email=email)
+    except User.DoesNotExist:
+        user.save()
+        user_id = User.objects.get(email=email)
+
+    skill = Skill( skill_name=skill_name, language=skill_language, meta_description=skill_meta_description)
     skill.save()
+    skill.contributed_by.add(user_id)
+    skill.save()
+    # for tag in data['tags']:
+    #     tagObj = Tag.objects.filter(tagName=tag['tagName'])
+    #     if not tagObj:
+    #         tagObj = Tag.objects.create(tagName=tag['tagName'].lower())
+    #         skill.tags.add(tagObj)
+    #     else:
+    #         skill.tags.add(tagObj[0])
+    #     skill.save()
 
-    for tag in data['tags']:
-        tagObj = Tag.objects.filter(tagName=tag['tagName'])
-        if not tagObj:
-            tagObj = Tag.objects.create(tagName=tag['tagName'].lower())
-            skill.tags.add(tagObj)
-        else:
-            skill.tags.add(tagObj[0])
-        skill.save()
-
-    for prereq in data['prerequisites']:
-        pre = Prerequisite.objects.filter(prereqName=prereq['prereqName'])
-        if not pre:
-            pre = Prerequisite.objects.create(
-                prereqName=prereq['prereqName'].lower())
-            skill.prerequisites.add(pre)
-        else:
-            skill.prerequisites.add(pre[0])
-        skill.save()
+    # for prereq in data['prerequisites']:
+    #     pre = Prerequisite.objects.filter(prereqName=prereq['prereqName'])
+    #     if not pre:
+    #         pre = Prerequisite.objects.create(
+    #             prereqName=prereq['prereqName'].lower())
+    #         skill.prerequisites.add(pre)
+    #     else:
+    #         skill.prerequisites.add(pre[0])
+    #     skill.save()
 
     def save_prerequisites(skill_temp,data_temp):
         for prereq in data_temp['prerequisites']:
@@ -110,96 +118,84 @@ def post_skill(request):
                 skill_temp.tags.add(tagObj[0])
             skill_temp.save()
     
+    
+
     def save_nested_topics(skill_temp, data_temp):
-        for topic in data_temp['topics']:
-            val = topic['topicName']
-            temp2_vote = Vote()
-            top = Topic(topicName=val, topic_vote= temp2_vote)
-            temp2_vote.save()
-            top.save()
+        try:
+            for topic in data_temp['topics']:
+                val = topic['topicName']
+                # temp2_vote = Vote()
+                top = Topic(topic_name=val)
+                try:
+                    topic_meta_description_temp = topic['meta_description']
+                    top(meta_description=topic_meta_description_temp)
+                except KeyError:
+                    pass
+                try:
+                    save_tags(top,topic)
+                except KeyError:
+                    pass
+                try :
+                    save_prerequisites(top,topic)
+                except KeyError:
+                    pass
+                # temp2_vote.save()
 
-    def save_nested_skill(skill_temp1,nested_data):
-        
-        for subskill in nested_data['subskills']:
-            skill_name_temp = subskill['skill']
-            skill_language_temp = subskill['language']
-            skill_meta_description_temp = subskill['meta_description']
-            skill_temp = Skill(contributed_by=user, skill=skill_name_temp, language=skill_language_temp,meta_description=skill_meta_description_temp)
-            try:
-                save_tags(skill_temp,subskill)
-            except KeyError:
-                pass
-            try:
-                save_prerequisites(skill_temp, subskill)
-            except KeyError:
-                pass
-            skill_temp.save()
-            try :
-                save_nested_skill(skill_temp,subskill)
-            except KeyError:
-                pass
-            skill_temp1.subskills.add(skill_temp,subskill['subskill'])
-        # skill_name_temp = nested_data['skill']
-        # skill_language_temp = nested_data['language']
-        # skill_meta_description_temp = data['meta_description']
-        # skill_temp = Skill(contributed_by=user, skill=skill_name_temp, language=skill_language_temp,meta_description=skill_meta_description_temp)
-        # skill_temp.save()
-        # return skill_temp
-
-
-    # for subskill in data['subskills']:
-    #     skill_name_temp = subskill['skill']
-    #     skill_language_temp = subskill['language']
-    #     skill_meta_description_temp = subskill['meta_description']
-    #     skill_temp = Skill(contributed_by=user, skill=skill_name_temp, language=skill_language_temp,meta_description=skill_meta_description_temp)
-
-    #     skill_temp.save()
-    #     skill.subskills.add(save_nested_skill(data['subskills']))
-
-    for level in data['levels']:
-        val = level['levelName']
-        # temp1_vote = Vote()
-        lev = Level(levelName=val)
-        lev.save()
-        
-        for topic in level['topics']:
-            val = topic['topicName']
-            temp2_vote = Vote()
-            top = Topic(topicName=val, topic_vote= temp2_vote)
-            temp2_vote.save()
-            top.save()
-            try:
-                for resource in topic['resources']:
-                    temp3_vote = Vote()
-                    res = Resource(link=resource['link'], resource_vote = temp3_vote)
-                    temp3_vote.save()
-                    res.save()
-                    top.resources.add(res)
-                    top.save()
-            except KeyError:
-                pass
-            lev.topics.add(top)
-            try:
-                for y in topic['subtopics']:
-                    temp4_vote = Vote()
-                    val = y['value']
-                    sub = Subtopic(value=val, subtopic_vote=temp4_vote)
-                    temp4_vote.save()
-                    sub.save()
-                    for yres in y['resources']:
-                        temp5_vote = Vote()
-                        res = Resource(link=yres['link'], resource_vote = temp5_vote)
-                        temp5_vote.save()
+                top.save()
+                try:
+                    for resource in topic['resources']:
+                        # temp3_vote = Vote()
+                        res = Resource(link=resource['link'])
+                        # temp3_vote.save()
                         res.save()
-                        sub.resources.add(res)
-                        sub.save()
-                    top.subtopics.add(sub)
-                    top.save()
-            except KeyError:
-                pass
+                        top.resources.add(res)
+                        top.save()
+                except KeyError:
+                    pass
+                save_nested_topics(top, topic)
+                if skill_temp.__class__.__name__=='Skill': 
+                    skill_temp.topics.add(top)
+                else :
+                    skill_temp.subtopics.add(top)
+        except KeyError:
+            pass
+    def save_nested_skill(skill_temp1,nested_data):
+        try:
+            for subskill in nested_data['subskills']:
+                skill_name_temp = subskill['skill']
+                skill_language_temp = subskill['language']
+                skill_meta_description_temp = subskill['meta_description']
+                skill_temp = Skill(contributed_by=user, skill=skill_name_temp, language=skill_language_temp,meta_description=skill_meta_description_temp)
+                try:
+                    save_tags(skill_temp,subskill)
+                except KeyError:
+                    pass
+                try:
+                    save_prerequisites(skill_temp, subskill)
+                except KeyError:
+                    pass
+                skill_temp.save()
+                try :
+                    save_nested_topics(skill_temp, nested_data)
+                except KeyError:
+                    pass
+                try :
+                    save_nested_skill(skill_temp,subskill)
+                except KeyError:
+                    pass
+                skill_temp1.subskills.add(skill_temp,subskill['subskill'])
+        except KeyError:
+            pass
 
-            lev.topics.add(top)
-            lev.save()
-        skill.levels.add(lev)
-        skill.save()
+    save_prerequisites(skill,data)
+    skill.save()
+    save_tags(skill, data)
+    skill.save()
+    
+    save_nested_topics(skill, data)
+    skill.save()
+    save_nested_skill(skill, data)
+    skill.save()
+
+    
     return Response(status=status.HTTP_201_CREATED)
