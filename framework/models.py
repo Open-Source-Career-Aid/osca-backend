@@ -62,6 +62,8 @@ class Skill( VoteModel):
 class Superskill( VoteModel):
     superskill_name = models.CharField(max_length=100)
     meta_description = models.CharField(max_length=200, blank=True)
+    language = models.CharField(max_length=200, blank=True)
+    contributed_by = models.ManyToManyField(User, blank=True)
     tags = models.ManyToManyField(
         Tag, related_name="all_skills_with_this_tag", blank=True)
     prerequisites = models.ManyToManyField(
