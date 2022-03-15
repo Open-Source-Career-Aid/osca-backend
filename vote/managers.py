@@ -205,7 +205,7 @@ class VotableManager(GenericRelation):
         if instance is not None and instance.pk is None:
             raise ValueError(
                 "%s objects need to have a primary key value "
-                "before you can access their votes." % model.__name__)
+                "before you can access their votes" % model.__name__)
 
         manager = self.manager(
             through=self.through,
@@ -213,7 +213,6 @@ class VotableManager(GenericRelation):
             instance=instance,
             field_name=self.name,
         )
-
         return manager
 
     def contribute_to_class(self, cls, name):
