@@ -15,7 +15,7 @@ from django.db.models import F
 # For getting all the skills
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication, SessionAuthentication,])
 @permission_classes([IsAuthenticated])
 def get_all_skills(request):
     skills = Skill.objects.all()
@@ -25,7 +25,7 @@ def get_all_skills(request):
 # For Getting all skills
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication, SessionAuthentication,])
 @permission_classes([IsAuthenticated])
 def get_all_super_skills(request):
     skills = Superskill.objects.all()
@@ -35,7 +35,7 @@ def get_all_super_skills(request):
 # for getting superskill with id
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication,SessionAuthentication,])
 @permission_classes([IsAuthenticated])
 def get_super_skill(request):
     id = request.GET.get('id')
@@ -48,7 +48,7 @@ def get_super_skill(request):
 # For getting skills with id
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication,SessionAuthentication,])
 @permission_classes([IsAuthenticated])
 def get_skill(request):
     id = request.GET.get('id')
