@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
@@ -15,6 +15,8 @@ from django.db.models import F
 # For getting all the skills
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_all_skills(request):
     skills = Skill.objects.all()
     serialized_data = SkillSerializer(skills, many=True)
@@ -23,6 +25,8 @@ def get_all_skills(request):
 # For Getting all skills
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_all_super_skills(request):
     skills = Superskill.objects.all()
     serialized_data = SuperSkillSerializer(skills, many=True)
@@ -31,6 +35,8 @@ def get_all_super_skills(request):
 # for getting superskill with id
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_super_skill(request):
     id = request.GET.get('id')
     super_skills = Superskill.objects.filter(id=id)
@@ -42,6 +48,8 @@ def get_super_skill(request):
 # For getting skills with id
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_skill(request):
     id = request.GET.get('id')
     skills = Skill.objects.filter(id=id)
