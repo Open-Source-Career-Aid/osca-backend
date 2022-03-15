@@ -10,7 +10,7 @@ class user_changes(models.Model):
 #     pass
 
 
-class Resource(models.Model):
+class Resource(VoteModel):
     link = models.TextField(blank=True)
     # resource_vote = models.OneToOneField(Vote,default=0, related_name="vote_resource", parent_link=True, blank=True, on_delete=models.PROTECT)
     
