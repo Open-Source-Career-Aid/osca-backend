@@ -222,15 +222,11 @@ def post_relatation_skill_skill(request):
     data = request.data
     parent_skill = Skill.objects.get(skill_name=data['parent_skill_name'].lower())
 
-    # def nest_skills(skill_object, nested_data):
-        # try:
     for skill in data['subskills']:
         skill_temp = Skill.objects.get(skill_name=skill['skill_name'].lower())
         parent_skill.subskills.add(skill_temp)
 
     parent_skill.save()            
-        # except KeyError:
-            # pass
     return Response(status=status.HTTP_201_CREATED)
     
 
@@ -409,8 +405,6 @@ def post_relatation_topic_topic(request):
     data = request.data
     parent_topic = Topic.objects.get(topic_name=data['parent_skill_name'].lower())
 
-    # def nest_skills(skill_object, nested_data):
-        # try:
     for topic in data['topics']:
         topic_temp = Skill.objects.get(topic_name=topic['topic_name'].lower())
         parent_topic.sub_topics.add(topic_temp)
