@@ -96,9 +96,9 @@ def post_skill(request):
     user = User(name=name, email=email)
     # user.save()
 
-    skill_name = data['skill']
-    skill_language = data['language']
-    skill_meta_description = data['meta_description']
+    skill_name = data['skill'].lower()
+    skill_language = data['language'].lower()
+    skill_meta_description = data['meta_description'].lower()
 
     try :
         user_id = User.objects.get(email=email)
@@ -220,12 +220,12 @@ def post_skill(request):
 @permission_classes([IsAuthenticated])
 def post_relatation_skill_skill(request):
     data = request.data
-    parent_skill = Skill.objects.get(skill_name=data['parent_skill_name'])
+    parent_skill = Skill.objects.get(skill_name=data['parent_skill_name'].lower())
 
     # def nest_skills(skill_object, nested_data):
         # try:
     for skill in data['subskills']:
-        skill_temp = Skill.objects.get(skill_name=skill['skill_name'])
+        skill_temp = Skill.objects.get(skill_name=skill['skill_name'].lower())
         parent_skill.subskills.add(skill_temp)
 
     parent_skill.save()            
@@ -239,12 +239,12 @@ def post_relatation_skill_skill(request):
 @permission_classes([IsAuthenticated])
 def post_relatation_skill_topics(request):
     data = request.data
-    parent_skill = Skill.objects.get(skill_name=data['parent_skill_name'])
+    parent_skill = Skill.objects.get(skill_name=data['parent_skill_name'].lower())
 
     # def nest_skills(skill_object, nested_data):
         # try:
     for topic in data['topics']:
-        topic_temp = Topic.objects.get(topic_name=topic['topic_name'])
+        topic_temp = Topic.objects.get(topic_name=topic['topic_name'].lower())
         parent_skill.topics.add(topic_temp)
 
     parent_skill.save()            
@@ -265,9 +265,9 @@ def post_super_skill(request):
 
     user = User(userName=name, email=email)
 
-    super_skill_name = data['skill']
-    super_skill_language = data['language']
-    super_skill_meta_description = data['meta_description']
+    super_skill_name = data['skill'].lower()
+    super_skill_language = data['language'].lower()
+    super_skill_meta_description = data['meta_description'].lower()
 
     try :
         user_id = User.objects.get(email=email)
@@ -322,12 +322,12 @@ def post_super_skill(request):
 @permission_classes([IsAuthenticated])
 def post_relatation_superskill_skill(request):
     data = request.data
-    parent_superskill = Superskill.objects.get(superskill_name=data['parent_superskill_name'])
+    parent_superskill = Superskill.objects.get(superskill_name=data['parent_superskill_name'].lower())
 
     # def nest_skills(skill_object, nested_data):
         # try:
     for skill in data['subskills']:
-        superskill_temp = Skill.objects.get(skill_name=skill['skill_name'])
+        superskill_temp = Skill.objects.get(skill_name=skill['skill_name'].lower())
         parent_superskill.sub_superskills.add(superskill_temp)
     
     parent_superskill.save()
@@ -342,12 +342,12 @@ def post_relatation_superskill_skill(request):
 @permission_classes([IsAuthenticated])
 def post_relatation_superskill_superskill(request):
     data = request.data
-    parent_superskill = Superskill.objects.get(superskill_name=data['parent_skill_name'])
+    parent_superskill = Superskill.objects.get(superskill_name=data['parent_skill_name'].lower())
 
     # def nest_skills(skill_object, nested_data):
         # try:
     for superskill in data['superskills']:
-        superskill_temp = Skill.objects.get(superskill_name=superskill['superskill_name'])
+        superskill_temp = Skill.objects.get(superskill_name=superskill['superskill_name'].lower())
         parent_superskill.sub_superskills.add(superskill_temp)
     
     parent_superskill.save()
@@ -369,9 +369,9 @@ def post_topic(request):
 
     user = User(name=name, email=email)
 
-    topic_name = data['topic']
+    topic_name = data['topic'].lower()
     # topic_language = data['language']
-    topic_meta_description = data['meta_description']
+    topic_meta_description = data['meta_description'].lower()
 
     try :
         user_id = User.objects.get(email=email)
@@ -392,7 +392,7 @@ def post_topic(request):
 
     try :
         for resource in data['resources']:
-            res = Resource(link=resource['link'])
+            res = Resource(link=resource['link'].lower())
             res.save()
             topic.resources.add(res)
 
@@ -407,12 +407,12 @@ def post_topic(request):
 @permission_classes([IsAuthenticated])
 def post_relatation_topic_topic(request):
     data = request.data
-    parent_topic = Topic.objects.get(topic_name=data['parent_skill_name'])
+    parent_topic = Topic.objects.get(topic_name=data['parent_skill_name'].lower())
 
     # def nest_skills(skill_object, nested_data):
         # try:
     for topic in data['topics']:
-        topic_temp = Skill.objects.get(topic_name=topic['topic_name'])
+        topic_temp = Skill.objects.get(topic_name=topic['topic_name'].lower())
         parent_topic.sub_topics.add(topic_temp)
     
     parent_topic.save()
