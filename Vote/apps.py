@@ -4,4 +4,4 @@ from django.utils.translation import ugettext_lazy as _
 
 class VoteAppConfig(BaseConfig):
     name = 'vote'
-    verbose_name = _('Vote')
+    # verbose_name = _('Vote')
