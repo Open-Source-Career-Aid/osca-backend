@@ -8,7 +8,7 @@ admin.site.register(Resource)
 admin.site.register(Tag)
 admin.site.register(Prerequisite)
 admin.site.register(Topic)
-admin.site.register(Subskill)
+admin.site.register(Skill)
 admin.site.register(Superskill)
 
 

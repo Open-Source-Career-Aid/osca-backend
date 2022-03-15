@@ -21,12 +21,18 @@ class TopicSerializer(serializers.ModelSerializer):
         model = Topic
         fields='__all__'
 
-class SubSkillSerializer(serializers.ModelSerializer):
-    prerequisite = RelationalPrerequisiteSerializer(source="prerequisites",read_only=True, many=True)
+class SkillSerializer(serializers.ModelSerializer):
+    # prerequisite = RelationalPrerequisiteSerializer(source="prerequisites",read_only=True, many=True)
     class Meta:
-        model = Subskill
+        model = Skill
         fields='__all__'
-        depth = 4
+        depth=2
+    
+    def get_fields(self):
+        fields=super(SkillSerializer, self).get_fields()
+        fields['subskills'] = SkillSerializer(many=True)
+        return fields
+        # depth = 4
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,24 +40,34 @@ class UserSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class SuperSkillSerializer(serializers.ModelSerializer):
-    sub_skill= RelationalSubSkillSerializer(source="subskills",read_only=True, many=True)
+    sub_skill= RelationalSubSkillSerializer(source="Skills",read_only=True, many=True)
     class Meta:
         model = Superskill
         fields = '__all__'
-        depth=3
+        depth=2
+    def get_fields(self):
+        fields=super(SuperSkillSerializer, self).get_fields()
+        fields['sub_superskills'] = SuperSkillSerializer(many=True)
+        return fields
+        
 
 class SkillNameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subskill
-        fields = ['id','subskill_name','tags']
+        model = Skill
+        fields = ['id','skill_name','tags']
         depth=2
 
 class SuperSkillNameSerializer(serializers.ModelSerializer):
     tag = TagSerializer(source="tags",read_only=True, many=True)
-    sub_skill= RelationalSubSkillSerializer(source="subskills",read_only=True, many=True)
+    sub_skill= RelationalSubSkillSerializer(source="skills",read_only=True, many=True)
     class Meta:
         model = Superskill
         fields = ['id','superskill_name','tags','subskills']
+        
+    def get_fields(self):
+        fields=super(SuperSkillNameSerializer, self).get_fields()
+        fields['sub_superskills'] = SuperSkillNameSerializer(many=True)
+        return fields
 
 # class SuperSkillNameSerializer2(serializers.ModelSerializer):
 #     class Meta:
