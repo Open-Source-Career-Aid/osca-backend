@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^-+us+!uovvjiso%v9yzl$@ki8b$!m5=7bsj^1!70%!!*3jwba'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1', 'oscaweb.herokuapp.com', '0.0.0.0','osca-api.herokuapp.com']
 
@@ -115,10 +115,10 @@ REST_FRAMEWORK = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'djqeelnr',
-#         'USER':'djqeelnr',
-#         'PASSWORD' : 'aJHhndMrliyKzwgrKkcQkJ1kE0eUENd0',
-#         'HOST' : 'ziggy.db.elephantsql.com',
+#         'NAME': 'djr',
+#         'USER':'djq',
+#         'PASSWORD' : 'aJHhndMrliykJ1kE0eUENd0',
+#         'HOST' : 'lephantsql.com',
 #         'PORT':'5432',
 
 #     }
