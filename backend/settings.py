@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-^-+us+!uovvjiso%v9yzl$@ki8b$!m5=7bsj^1!70%!!*3jwba
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'oscaweb.herokuapp.com', '0.0.0.0','osca-api.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', 'oscaweb.herokuapp.com', '0.0.0.0','osca-api.herokuapp.com']
 
 
 # Application definition
@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'user',
     'vote',
     'rest_framework.authtoken',
+
+    'ordered_model',
 
 ]
 
@@ -110,6 +112,20 @@ REST_FRAMEWORK = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'djqeelnr',
+#         'USER':'djqeelnr',
+#         'PASSWORD' : 'aJHhndMrliyKzwgrKkcQkJ1kE0eUENd0',
+#         'HOST' : 'ziggy.db.elephantsql.com',
+#         'PORT':'5432',
+
+#     }
+# }
+
+
+
 
 
 db_from_env = dj_database_url.config(conn_max_age=600)
