@@ -19,7 +19,7 @@ class VoteSerializer(serializers.ModelSerializer):
         # fields='__all__'
 
 class TopicSerializer(serializers.ModelSerializer):
-    resources=ResourceSerializer()
+    resources=ResourceSerializer(source="Resources",read_only=True, many=True)
     class Meta:
         model = Topic
         fields = ['id','topic_name','tags','subtopics','resources']
@@ -28,7 +28,7 @@ class TopicSerializer(serializers.ModelSerializer):
 class SkillSerializer(serializers.ModelSerializer):
     # prerequisite = RelationalPrerequisiteSerializer(source="prerequisites",read_only=True, many=True)
     # subskills=SkillSerializer()
-    topics=TopicSerializer()
+    topics=TopicSerializer(source="Topics",read_only=True, many=True)
     class Meta:
         model = Skill
         # fields='__all__'
