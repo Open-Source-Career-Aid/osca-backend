@@ -9,12 +9,14 @@ from .relational_serializers import *
 class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resource
-        fields='__all__'
+        fields = ['id','link']
+        # fields='__all__'
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
-        fields='__all__'
+        fields = []
+        # fields='__all__'
 
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,7 +41,9 @@ class SkillSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields='__all__'
+        fields = []
+
+        # fields='__all__'
 
 class SuperSkillSerializer(serializers.ModelSerializer):
     sub_skill= RelationalSubSkillSerializer(source="Skills",read_only=True, many=True)
