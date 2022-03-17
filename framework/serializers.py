@@ -19,14 +19,16 @@ class VoteSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Topic
-        fields='__all__'
+        fields = ['id','topic_name','tags','subtopics','resources']
+        # fields='__all__'
 
 class SkillSerializer(serializers.ModelSerializer):
     # prerequisite = RelationalPrerequisiteSerializer(source="prerequisites",read_only=True, many=True)
     class Meta:
         model = Skill
-        fields='__all__'
-        depth=2
+        # fields='__all__'
+        fields = ['id','skill_name','tags','topics','subskills']
+        depth=4
     
     def get_fields(self):
         fields=super(SkillSerializer, self).get_fields()
@@ -43,8 +45,10 @@ class SuperSkillSerializer(serializers.ModelSerializer):
     sub_skill= RelationalSubSkillSerializer(source="Skills",read_only=True, many=True)
     class Meta:
         model = Superskill
-        fields = '__all__'
+        fields = ['id','superskill_name','tags','Skills','sub_superskills']
+        # fields = '__all__'
         depth=2
+
     def get_fields(self):
         fields=super(SuperSkillSerializer, self).get_fields()
         fields['sub_superskills'] = SuperSkillSerializer(many=True)
