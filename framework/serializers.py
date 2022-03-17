@@ -28,7 +28,7 @@ class TopicSerializer(serializers.ModelSerializer):
 class SkillSerializer(serializers.ModelSerializer):
     # prerequisite = RelationalPrerequisiteSerializer(source="prerequisites",read_only=True, many=True)
     # subskills=SkillSerializer()
-    topic=TopicSerializer()
+    topics=TopicSerializer()
     class Meta:
         model = Skill
         # fields='__all__'
