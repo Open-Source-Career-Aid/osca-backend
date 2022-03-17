@@ -19,7 +19,7 @@ class VoteSerializer(serializers.ModelSerializer):
         # fields='__all__'
 
 class TopicSerializer(serializers.ModelSerializer):
-    resoures=ResourceSerializer()
+    resources=ResourceSerializer()
     class Meta:
         model = Topic
         fields = ['id','topic_name','tags','subtopics','resources']
