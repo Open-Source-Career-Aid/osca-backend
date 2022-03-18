@@ -15,16 +15,16 @@ class TopicAdmin(OrderedModelAdmin):
     list_display = ('topic_name', 'move_up_down_links')
 class SkillAdmin(OrderedModelAdmin):
     list_display = ('skill_name', 'move_up_down_links')
-class SuperskillAdmin(OrderedModelAdmin):
-    list_display = ('superskill_name', 'move_up_down_links')
+#class SuperskillAdmin(OrderedModelAdmin):
+#    list_display = ('superskill_name', 'move_up_down_links')
 
 # Register your models here.
 admin.site.register(Resource,ResourceAdmin)
-admin.site.register(Tag,TagAdmin)
-admin.site.register(Prerequisite,PrerequisiteAdmin)
+#admin.site.register(Tag,TagAdmin)
+#admin.site.register(Prerequisite,PrerequisiteAdmin)
 admin.site.register(Topic,TopicAdmin)
 admin.site.register(Skill,SkillAdmin)
-admin.site.register(Superskill,SuperskillAdmin)
+#admin.site.register(Superskill,SuperskillAdmin)
 
 
 
