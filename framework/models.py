@@ -1,5 +1,5 @@
 from django.db import models
-from vote.models import VoteModel
+#from vote.models import VoteModel
 from user.models import User
 # Create your models here.
 
@@ -12,7 +12,7 @@ from ordered_model.models import OrderedModel
 #     pass
 
 
-class Resource(OrderedModel, VoteModel ):
+class Resource(OrderedModel):#(, VoteModel)
     link = models.TextField(blank=True)
     # resource_vote = models.OneToOneField(Vote,default=0, related_name="vote_resource", parent_link=True, blank=True, on_delete=models.PROTECT)
     # topics
@@ -50,7 +50,7 @@ class Topic(OrderedModel): #(), VoteModel)
     def __str__(self):
         return self.topic_name
 
-class Skill(OrderedModel, VoteModel):
+class Skill(OrderedModel): #(, VoteModel)
     skill_name = models.CharField(max_length=100)
     language = models.CharField(max_length=200, blank=True)
     contributed_by = models.ManyToManyField(User, blank=True)
