@@ -43,7 +43,7 @@ class Topic(OrderedModel): #(, VoteModel)
 #       Prerequisite, related_name="topic_with_this_prerequisite", blank=True)
     #contributed_by = models.ManyToManyField(User, blank=True)
     subtopics = models.ManyToManyField("self", blank=True,  related_name="Subtopics", symmetrical=False)
-    skills_backlink = models.ForeignKey('Skill', on_delete=models.CASCADE)
+    skills_backlink = models.ForeignKey('Skill', on_delete=models.SET_NULL, null=True, blank=True)
 #    resources = models.ManyToManyField(Resource, blank=True)
     #timed_changes = models.DateTimeField(auto_now_add=True)
     # subskills_backlink = 

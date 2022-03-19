@@ -18,6 +18,7 @@ class TopicinLine(admin.StackedInline):
     fields = ('topic_name',)
 class SkillAdmin(OrderedModelAdmin):
     list_display = ('skill_name', 'move_up_down_links')
+    fields = ('skill_name',)
     inlines = [
         TopicinLine,
     ]
