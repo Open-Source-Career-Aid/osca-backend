@@ -360,20 +360,20 @@ def post_relatation_superskill_superskill(request):
 @permission_classes([IsAuthenticated])
 def post_topic(request):
     data = request.data
-    name = data['userName']
-    email = data['email']
+    #name = data['userName']
+    #email = data['email']
 
-    user = User(name=name, email=email)
+    #user = User(name=name, email=email)
 
     topic_name = data['topic'].lower()
     # topic_language = data['language']
     topic_meta_description = data['meta_description'].lower()
 
-    try :
-        user_id = User.objects.get(email=email)
-    except User.DoesNotExist:
-        user.save()
-        user_id = User.objects.get(email=email)
+   # try :
+       # user_id = User.objects.get(email=email)
+   # except User.DoesNotExist:
+     #   user.save()
+    #    user_id = User.objects.get(email=email)
     
     topic = Topic(topic_name=topic_name, meta_description=topic_meta_description )
 

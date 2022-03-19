@@ -3,26 +3,26 @@ from django.db.models.fields import files
 from rest_framework import serializers
 from .models import *
 from user.models import *
-from vote.models import *
+#from vote.models import *
 from .relational_serializers import *
 
-class ResourceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Resource
-        fields = ['id','link']
-        # fields='__all__'
+#class ResourceSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = Resource
+#        fields = ['id','link']
+#        # fields='__all__'
 
-class VoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vote
-        fields = []
+#class VoteSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = Vote
+#        fields = []
         # fields='__all__'
 
 class TopicSerializer(serializers.ModelSerializer):
-    resources=ResourceSerializer(read_only=True, many=True)
+#    resources=ResourceSerializer(read_only=True, many=True)
     class Meta:
         model = Topic
-        fields = ['id','topic_name','tags','subtopics','resources']
+        fields = ['topic_name','tags','subtopics','resources']#'id',
         depth=1
         # fields='__all__'
     def get_fields(self):
