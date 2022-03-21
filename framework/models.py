@@ -57,7 +57,7 @@ class Skill(OrderedModel, VoteModel):
     meta_description = models.CharField(max_length=200, blank=True)
     tags = models.ManyToManyField(Tag, related_name="subskill_tags", blank=True)
     prerequisites = models.ManyToManyField(Prerequisite, related_name="subskill_prerequisites", blank=True)
-    topics = models.ManyToManyField(Topic, related_name="subskill_topics", blank=True)
+    topics = models.ManyToManyField(Topic, related_name="subskill_topics", through='SkillTopicThroughModel', blank=True)
     timed_changes = models.DateTimeField(auto_now_add=True)
     # superskills_backlink = models.ForeignKey(Superskill)
     subskills = models.ManyToManyField("self", blank=True, related_name="subskills_under_subskill", symmetrical=False)
@@ -82,5 +82,8 @@ class Superskill(OrderedModel, VoteModel ):
         return self.superskill_name
 
 
-
+class SkillTopicThroughModel(OrderedModel):
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    order_with_respect_to = 'skill'
 

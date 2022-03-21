@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = "gfbngbgbgnhgxbsgbbhydnyhnx"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'oscaweb.herokuapp.com', '0.0.0.0','www.oscaofficial.com','osca-frontend.herokuapp.com']
 
@@ -112,39 +112,39 @@ REST_FRAMEWORK = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'djr',
-#         'USER':'djq',
-#         'PASSWORD' : 'aJHhndMrliykJ1kE0eUENd0',
-#         'HOST' : 'lephantsql.com',
-#         'PORT':'5432',
-
-#     }
-# }
-
-
-
-
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-try:
-    from . import local_settings
-    DATABASES=local_settings.DATABASES
-except ImportError as e:
-    DATABASES = {
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DEFAULT_NAME'),
-        'USER':os.getenv('DEFAULT_USER'),
-        'PASSWORD' : os.getenv('DEFAULT_PASS'),
-        'HOST' : os.getenv('DEFAULT_HOST'),
-        'PORT':'5432'
-    },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djqeelnr',
+        'USER':'djqeelnr',
+        'PASSWORD' : 'aJHhndMrliyKzwgrKkcQkJ1kE0eUENd0',   
+        'HOST' : 'ziggy.db.elephantsql.com',
+        'PORT':'5432',
+
+    }
 }
-    import django_heroku
-    django_heroku.settings(locals(), databases=False)
+
+
+
+
+
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# try:
+#     from . import local_settings
+#     DATABASES=local_settings.DATABASES
+# except ImportError as e:
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.getenv('DEFAULT_NAME'),
+#         'USER':os.getenv('DEFAULT_USER'),
+#         'PASSWORD' : os.getenv('DEFAULT_PASS'),
+#         'HOST' : os.getenv('DEFAULT_HOST'),
+#         'PORT':'5432'
+#     },
+# }
+#     import django_heroku
+#     django_heroku.settings(locals(), databases=False)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
