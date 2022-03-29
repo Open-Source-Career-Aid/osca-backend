@@ -22,7 +22,7 @@ def get_all_skills(request):
     serialized_data = SkillSerializer(skills, many=True)
     return Response(serialized_data.data)
 
-# For Getting all skills
+# For Getting all super skills
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication, SessionAuthentication,])
@@ -31,6 +31,17 @@ def get_all_super_skills(request):
     skills = Superskill.objects.all()
     serialized_data = SuperSkillSerializer(skills, many=True)
     return Response(serialized_data.data)
+
+# For Getting all topics
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication, SessionAuthentication,])
+@permission_classes([IsAuthenticated])
+def get_all_topics(request):
+    topics = Topic.objects.all()
+    serialized_data = TopicSerializer(topics, many=True)
+    return Response(serialized_data.data)
+
 
 # for getting superskill with id
 
@@ -56,6 +67,19 @@ def get_skill(request):
     serialized_skill_data = SkillSerializer(skills, many=True)
     if(serialized_skill_data.data):
         return Response(serialized_skill_data.data[0])
+    return Response(status=status.HTTP_404_NOT_FOUND)
+
+# For getting topic with id
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication,SessionAuthentication,])
+@permission_classes([IsAuthenticated])
+def get_topic(request):
+    id = request.GET.get('id')
+    topics = Topic.objects.filter(id=id)
+    serialized_topic_data = TopicSerializer(topics, many=True)
+    if(serialized_topic_data.data):
+        return Response(serialized_topic_data.data[0])
     return Response(status=status.HTTP_404_NOT_FOUND)
 
 
