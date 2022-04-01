@@ -115,10 +115,10 @@ REST_FRAMEWORK = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'djr',
-#         'USER':'djq',
-#         'PASSWORD' : 'aJHhndMrliykJ1kE0eUENd0',
-#         'HOST' : 'lephantsql.com',
+#         'NAME': 'djqeehwlnr',
+#         'USER':'djqeehwlnr',
+#         'PASSWORD' : 'JaHhndMrliyKzwgrKkcQkJ1kE0eUENd0',   
+#         'HOST' : 'elephantsql.com',
 #         'PORT':'5432',
 
 #     }
