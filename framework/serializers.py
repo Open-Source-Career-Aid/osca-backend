@@ -22,7 +22,7 @@ class TopicSerializer(serializers.ModelSerializer):
 #    resources=ResourceSerializer(read_only=True, many=True)
     class Meta:
         model = Topic
-        fields = ['topic_name','tags','subtopics','resources']#'id',
+        fields = ['id','topic_name','tags','subtopics','resources']
         depth=1
         # fields='__all__'
     def get_fields(self):
