@@ -54,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
         # fields='__all__'
 
 class SuperSkillSerializer(serializers.ModelSerializer):
-    sub_skill= RelationalSubSkillSerializer(source="Skills",read_only=True, many=True)
+    # sub_skill= RelationalSubSkillSerializer(source="Skills",read_only=True, many=True)
     # sub_superskills=SuperSkillSerializer()
     class Meta:
         model = Superskill

@@ -17,8 +17,6 @@ class RelationalSubSkillSerializer(serializers.RelatedField):
         model = Skill
         fields = '__all__'
 
-
-
 class RelationalPrerequisiteSerializer(serializers.RelatedField):
      def to_representation(self, value):
          return value.prereqName
